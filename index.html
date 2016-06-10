@@ -266,8 +266,7 @@ var server = app.listen(port, function() {
 
 <p>As we are developing our application in Typescript, we need to add <strong>tsconfig.json</strong></p>
 
-<pre><code>
-{
+<pre><code>{
   "compilerOptions": {
     "target": "ES5",
     "module": "system",
@@ -282,7 +281,6 @@ var server = app.listen(port, function() {
     "typings"
   ]
 }
-
 </code></pre>
 
 <p>We will also need some typings to be installed for our application. Add <strong>typings.json</strong> like we added for server</p>
@@ -292,6 +290,38 @@ var server = app.listen(port, function() {
     "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504"
   }
 }
+</code></pre>
+
+<p>Once you have added typings.json we need to install typings for our client application. Navigate to client folder in command prompt and run following command.</p>
+
+<p><code>typings install</code></p>
+
+<h2>
+<a id="angular2-code" class="anchor" href="#angular2-code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Angular2 Code</h2>
+
+<p>Now let's start adding our angular code.  create a directory named <em>app</em> inside <em>/client</em> folder.</p>
+
+<h3>
+<a id="note--i-am-just-going-to-cover-the-basic-angular-code-from-quick-start-application-the-main-agenda-for-this-post-is-to-use-angular-with-express-server-please-go-to-my-github-to-get-the-finished-angular-quick-start-application" class="anchor" href="#note--i-am-just-going-to-cover-the-basic-angular-code-from-quick-start-application-the-main-agenda-for-this-post-is-to-use-angular-with-express-server-please-go-to-my-github-to-get-the-finished-angular-quick-start-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Note : I am just going to cover the basic angular code from quick start application. The main agenda for this post is to use angular with Express server. Please go to my <a href="https://github.com/moizKachwala/angular2-express">github</a> to get the finished angular Quick start application.</h3>
+
+<p>Now in <em>/client/app</em>, Create our first component <em>app.component.ts</em>. This is our root component for our application</p>
+
+<pre><code>import {Component} from 'angular2/core';
+@Component({
+  selector: 'my-app',
+  template: '&lt;h1&gt;My First Angular 2 App&lt;/h1&gt;'
+})
+export class AppComponent { }
+
+</code></pre>
+
+<p>Now we need to add a bootstrap class which will initialize our application. Add <em>main.ts</em> inside /app directory.</p>
+
+<pre><code>import {bootstrap} from 'angular2/platform/browser';
+
+import {AppComponent} from './app.component';
+
+bootstrap(AppComponent);
 </code></pre>
 
       <footer class="site-footer">
