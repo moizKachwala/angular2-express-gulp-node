@@ -324,6 +324,170 @@ import {AppComponent} from './app.component';
 bootstrap(AppComponent);
 </code></pre>
 
+<p>Till this point our project structure should look like this.</p>
+
+<pre><code>angular2-express
+      |-- node_modules
+      |-- client
+           |-- app
+                |-- app.component.ts
+                |-- main.ts
+           |-- typings
+           |-- index.html
+           |-- tsconfig.json
+           |-- typings.json
+      |-- server
+           |-- typings
+           |-- server.ts
+           |-- tsconfig.json
+           |-- typings.json
+      gulpfile.ts
+      package.json
+      tsconfig.json
+</code></pre>
+
+<h2>
+<a id="gulpfile-task-management" class="anchor" href="#gulpfile-task-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GulpFile (Task Management)</h2>
+
+<p>Now we have our client and server setup we need to add a root file which would clean, compile and build our application. Modify <strong>gulpfile.ts</strong></p>
+
+<pre><code>"use strict";
+
+const gulp = require("gulp"),
+        del = require("del"),
+        tsc = require("gulp-typescript"),
+        sourcemaps = require('gulp-sourcemaps'),
+        tsProject = tsc.createProject("tsconfig.json"),
+        tslint = require('gulp-tslint'),
+        concat = require('gulp-concat'),
+        runSequence = require('run-sequence'),
+        nodemon = require('gulp-nodemon'),
+        gulpTypings = require("gulp-typings");
+
+/**
+ * Remove build directory.
+ */
+gulp.task('clean', (cb) =&gt; {
+    return del(["build"], cb);
+});
+
+/**
+ * Build Express server
+ */
+gulp.task('build:server', function () {
+    var tsProject = tsc.createProject('server/tsconfig.json');
+    var tsResult = gulp.src('server/**/*.ts')
+        .pipe(sourcemaps.init())
+        .pipe(tsc(tsProject))
+    return tsResult.js
+        .pipe(concat('server.js'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('build'))
+});
+
+gulp.task('build:client', function(){
+    var tsProject = tsc.createProject('client/tsconfig.json');
+    var tsResult = gulp.src('client/**/*.ts')
+        .pipe(sourcemaps.init())
+        .pipe(tsc(tsProject))
+    return tsResult.js
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('build'))
+});
+
+/**
+ * Lint all custom TypeScript files.
+ */
+gulp.task('tslint', () =&gt; {
+    return gulp.src("client/app/**/*.ts")
+        .pipe(tslint())
+        .pipe(tslint.report('prose'));
+});
+
+
+/**
+ * Compile TypeScript sources and create sourcemaps in build directory.
+ */
+gulp.task("compile", ["tslint"], () =&gt; {
+    let tsResult = gulp.src("client/**/*.ts")
+        .pipe(sourcemaps.init())
+        .pipe(tsc(tsProject));
+    return tsResult.js
+        .pipe(sourcemaps.write("."))
+        .pipe(gulp.dest("build"));
+});
+
+/**
+ * Copy all resources that are not TypeScript files into build directory.
+ */
+gulp.task("resources", () =&gt; {
+    return gulp.src(["client/**/*", "!**/*.ts"])
+        .pipe(gulp.dest("build"));
+});
+
+/**
+ * Copy all required libraries into build directory.
+ */
+gulp.task("libs", () =&gt; {
+    return gulp.src([
+        'angular2/bundles/angular2-polyfills.js',
+        'systemjs/dist/system.src.js',
+        'rxjs/bundles/Rx.js',
+        'angular2/bundles/angular2.dev.js',
+        'angular2/bundles/router.dev.js'
+    ], {cwd: "node_modules/**"}) /* Glob required here. */
+        .pipe(gulp.dest("build/libs"));
+});
+
+/**
+ * Watch for changes in TypeScript, HTML and CSS files.
+ */
+gulp.task('watch', function () {
+    gulp.watch(["client/**/*.ts"], ['compile']).on('change', function (e) {
+        console.log('TypeScript file ' + e.path + ' has been changed. Compiling.');
+    });
+    gulp.watch(["client/**/*.html", "client/**/*.css"], ['resources']).on('change', function (e) {
+        console.log('Resource file ' + e.path + ' has been changed. Updating.');
+    });
+});
+
+/**
+ * Install typings for server and client.
+ */
+gulp.task("installTypings",function(){
+    var stream = gulp.src(["./server/typings.json","./client/typings.json"])
+        .pipe(gulpTypings(null)); //will install all typingsfiles in pipeline.
+    return stream; // by returning stream gulp can listen to events from the stream and knows when it is finished.
+});
+
+/**
+ * Start the express server with nodemon
+ */
+gulp.task('start', function () {
+    nodemon({ script: 'build/server.js'
+        , ext: 'html js'
+        , ignore: ['ignored.js']
+        , tasks: ['tslint'] })
+        .on('restart', function () {
+            console.log('restarted!')
+        });
+});
+
+/**
+ * Build the project.
+ * 1. Clean the build directory
+ * 2. Build Express server
+ * 3. Build the Angular app
+ * 4. Copy the resources
+ * 5. Copy the dependencies.
+ */
+
+gulp.task("build", function (callback) {
+    runSequence('clean', 'build:server', 'build:client', 'resources', 'libs', callback);
+});
+
+</code></pre>
+
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/moizKachwala/angular2-express">Angular2-Express-Node-Gulp</a> is maintained by <a href="https://github.com/moizKachwala">moizKachwala</a>.</span>
 
