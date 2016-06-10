@@ -27,7 +27,7 @@
 
 <p>Basic Angular seed application created with Quick start application given on angular website (<a href="https://angular.io/docs/ts/latest/quickstart.html">https://angular.io/docs/ts/latest/quickstart.html</a>). It uses Typescript, Gulp for tasks like build, compile, install etc and ExpressJS as server. The application basically involve both client(Angular2) and server(Express and Node).</p>
 
-<p>(<a href="https://github.com/moizKachwala/angular2-express">Github Directory - https://github.com/moizKachwala/angular2-express</a>)</p>
+<p><a href="https://github.com/moizKachwala/angular2-express">Github Directory - https://github.com/moizKachwala/angular2-express</a></p>
 
 <h2>
 <a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
@@ -216,6 +216,83 @@ var server = app.listen(port, function() {
 
 <h2>
 <a id="client-setup" class="anchor" href="#client-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Client Setup</h2>
+
+<p>Let's drive the Client Side Application with Angular2.</p>
+
+<p>In /client directory add <strong>index.html</strong></p>
+
+<pre><code>&lt;html&gt;
+
+  &lt;head&gt;
+    &lt;title&gt;Angular 2 Quickstart with Express&lt;/title&gt;
+    &lt;base href="/"/&gt;
+
+    &lt;!-- 1. Load libraries --&gt;
+    &lt;script src="libs/angular2/bundles/angular2-polyfills.js"&gt;&lt;/script&gt;
+    &lt;script src="libs/systemjs/dist/system.src.js"&gt;&lt;/script&gt;
+    &lt;script src="libs/rxjs/bundles/Rx.js"&gt;&lt;/script&gt;
+    &lt;script src="libs/angular2/bundles/angular2.dev.js"&gt;&lt;/script&gt;
+    &lt;script src="libs/angular2/bundles/router.dev.js"&gt;&lt;/script&gt;
+
+    &lt;!-- 2. Configure SystemJS --&gt;
+    &lt;script&gt;
+      System.config({
+        packages: {        
+          app: {
+            format: 'register',
+            defaultExtension: 'js'
+          }
+        }
+      });
+      System.import('app/main')
+            .then(null, console.error.bind(console));
+    &lt;/script&gt;
+
+  &lt;/head&gt;
+  &lt;!-- 3. Display the application --&gt;
+  &lt;body&gt;
+    &lt;my-app&gt;Loading...&lt;/my-app&gt;
+  &lt;/body&gt;
+
+&lt;/html&gt;
+
+</code></pre>
+
+<ul>
+<li>This is the basic startup file for the angular application</li>
+<li>Notice System.config in index.html. This will tell angular to load module based scripts in the browser.</li>
+<li>There are libs included in the file which will load some of the core dependencies for our angular application.</li>
+</ul>
+
+<p>As we are developing our application in Typescript, we need to add <strong>tsconfig.json</strong></p>
+
+<pre><code>
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "system",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false
+  },
+  "exclude": [
+    "typings"
+  ]
+}
+
+</code></pre>
+
+<p>We will also need some typings to be installed for our application. Add <strong>typings.json</strong> like we added for server</p>
+
+<pre><code>{
+  "globalDependencies": {
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504"
+  }
+}
+</code></pre>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/moizKachwala/angular2-express">Angular2-Express-Node-Gulp</a> is maintained by <a href="https://github.com/moizKachwala">moizKachwala</a>.</span>
