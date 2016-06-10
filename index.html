@@ -91,6 +91,53 @@ npm init -y
       gulpfile.ts
 </code></pre>
 
+<p>Now as we have taken gulpfile.ts we need to tell how to compile the ts file by adding tsconfig.json. This also set the outDir which we will be handling later. We have also added exclude option so we don't want typescript to go and compile those directives/files.</p>
+
+<pre><code>{
+  "compilerOptions": {
+    "outDir": "build/app",
+    "target": "es5",
+    "module": "system",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false
+  },
+  "exclude": [
+    "node_modules",
+    "typings",
+    "typings/index.d.ts"
+  ]
+}
+</code></pre>
+
+<p>So now we have done with the basic structure we will start implementing Server for our application.</p>
+
+<h2>
+<a id="server-setup" class="anchor" href="#server-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Server Setup</h2>
+
+<p>First thing we need to do is create a tsconfig.json inside server folder.This will tell our typescript compiler how to compile our .ts extension files.</p>
+
+<p>Let's create tsconfig.json in /server folder with following content.</p>
+
+<pre><code>{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "commonjs",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false
+  },
+  "exclude": [
+    "typings"
+  ]
+}
+</code></pre>
+
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/moizKachwala/angular2-express">Angular2-Express-Node-Gulp</a> is maintained by <a href="https://github.com/moizKachwala">moizKachwala</a>.</span>
 
