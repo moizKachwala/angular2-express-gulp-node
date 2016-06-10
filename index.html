@@ -488,6 +488,92 @@ gulp.task("build", function (callback) {
 
 </code></pre>
 
+<ul>
+<li>Gulpfile handles many tasks.</li>
+<li>Clean - clean the build directory</li>
+<li>Compile - compile the .ts files and generate .js and .map files.</li>
+<li>Build:server - Build our server.ts</li>
+<li>Build:client - Build our angular application.</li>
+<li>Watch - Watch for the changes.</li>
+<li>Start - It uses nodemon for running the server. The benefit of running this is it will automatically restart the server when there is any change in the code.</li>
+<li>tslint - this will run the code against some best practices.</li>
+</ul>
+
+<h2>
+<a id="running-the-code" class="anchor" href="#running-the-code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running the code</h2>
+
+<pre><code>npm install
+npm build
+npm start
+</code></pre>
+
+<h2>
+<a id="ts-lint" class="anchor" href="#ts-lint" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ts Lint</h2>
+
+<p>Create a file <strong>tslint.json</strong> in the root directory.</p>
+
+<pre><code>{
+  "rules": {
+    "class-name": true,
+    "curly": true,
+    "eofline": false,
+    "forin": true,
+    "indent": [
+      true,
+      4
+    ],
+    "label-position": true,
+    "label-undefined": true,
+    "max-line-length": [
+      true,
+      200
+    ],
+    "no-arg": true,
+    "no-bitwise": true,
+    "no-console": [
+      true,
+      "debug",
+      "info",
+      "time",
+      "timeEnd",
+      "trace"
+    ],
+    "no-construct": true,
+    "no-debugger": true,
+    "no-duplicate-key": true,
+    "no-duplicate-variable": true,
+    "no-empty": false,
+    "no-eval": true,
+    "no-string-literal": false,
+    "no-trailing-whitespace": true,
+    "no-unused-variable": false,
+    "no-unreachable": true,
+    "no-use-before-declare": true,
+    "one-line": [
+      true,
+      "check-open-brace",
+      "check-catch",
+      "check-else",
+      "check-whitespace"
+    ],
+    "radix": true,
+    "semicolon": true,
+    "triple-equals": [
+      true,
+      "allow-null-check"
+    ],
+    "variable-name": false,
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-separator"
+    ]
+  }
+}
+</code></pre>
+
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/moizKachwala/angular2-express">Angular2-Express-Node-Gulp</a> is maintained by <a href="https://github.com/moizKachwala">moizKachwala</a>.</span>
 
