@@ -34,9 +34,9 @@
 
 <p>Before we start make sure you have NodeJS installed in your machine.If not then you can download and install NodeJS from (<a href="https://nodejs.org/en/">https://nodejs.org/en/</a>)</p>
 
-<p>You will also need a global tools. You need to install typescript globally by following command.</p>
+<p>You need to install typings globally by following command. </p>
 
-<p><code>npm install --global typescript</code></p>
+<p><code>npm install --global typings</code></p>
 
 <h2>
 <a id="project-setup" class="anchor" href="#project-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Project Setup</h2>
@@ -142,6 +142,50 @@ npm init -y
     "typings"
   ]
 }
+
+</code></pre>
+
+<p>In our server directory, We need to add <strong>typings.json</strong>. Typings is the simple way to manage and install TypeScript definitions.</p>
+
+<pre><code>{
+  "globalDependencies": {
+    "express": "registry:dt/express#4.0.0+20160317120654",
+    "express-serve-static-core": "registry:dt/express-serve-static-core#0.0.0+20160602151406",
+    "mime": "registry:dt/mime#0.0.0+20160316155526",
+    "node": "registry:dt/node#6.0.0+20160608083720",
+    "serve-static": "registry:dt/serve-static#0.0.0+20160606155157"
+  }
+}
+
+</code></pre>
+
+<p>Now go to command prompt, and navigate to server folder and execute the following command. This will install the typescript definations for our server.</p>
+
+<p><code>typings install</code></p>
+
+<p>You will notice that it created a directory <strong>typings</strong> inside <strong>/server</strong> directory</p>
+
+<p>Now lets create <strong>server.ts</strong> inside /server directory.</p>
+
+<pre><code>import express = require('express');
+import path = require('path');
+var port: number = process.env.PORT || 3000;
+var app = express();
+
+app.use('/app', express.static(path.resolve(__dirname, 'app')));
+app.use('/libs', express.static(path.resolve(__dirname, 'libs')));
+
+var renderIndex = (req: express.Request, res: express.Response) =&gt; {
+    res.sendFile(path.resolve(__dirname, 'index.html'));
+}
+
+app.get('/*', renderIndex);
+
+var server = app.listen(port, function() {
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log('This express app is listening on port:' + port);
+});
 
 </code></pre>
 
