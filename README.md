@@ -13,6 +13,28 @@ Basic Angular seed application created with Quick start application given on ang
     npm start
 ```
 
+## Project Structure
+
+angular2-express
+      |-- node_modules
+      |-- client
+           |-- app
+                |-- app.component.ts
+                |-- main.ts
+           |-- typings
+           |-- index.html
+           |-- tsconfig.json
+           |-- typings.json
+      |-- server
+           |-- typings
+           |-- server.ts
+           |-- tsconfig.json
+           |-- typings.json
+      gulpfile.ts
+      package.json
+      tsconfig.json
+      tslint.json
+
 ## Dependencies
 
 1. Angular 2
