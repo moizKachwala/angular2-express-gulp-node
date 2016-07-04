@@ -15,6 +15,7 @@ Basic Angular seed application created with Quick start application given on ang
 
 ## Project Structure
 
+```
 angular2-express
       |-- node_modules
       |-- client
@@ -34,6 +35,7 @@ angular2-express
       package.json
       tsconfig.json
       tslint.json
+```
 
 ## Dependencies
 
