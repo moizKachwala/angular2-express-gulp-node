@@ -2,7 +2,7 @@
  * Created by Moiz.Kachwala on 02-06-2016.
  */
 
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import {HEROES} from "../mock/mock-heroes";
 
 

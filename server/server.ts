@@ -6,6 +6,10 @@ var app = express();
 app.use('/app', express.static(path.resolve(__dirname, 'app')));
 app.use('/libs', express.static(path.resolve(__dirname, 'libs')));
 
+// for system.js to work. Can be removed if bundling.
+app.use(express.static(path.resolve(__dirname, '.')));
+app.use(express.static(path.resolve(__dirname, '../node_modules')));
+
 var renderIndex = (req: express.Request, res: express.Response) => {
     res.sendFile(path.resolve(__dirname, 'index.html'));
 }

@@ -2,15 +2,15 @@
  * Created by Moiz.Kachwala on 02-06-2016.
  */
 
-import {Component, Input} from 'angular2/core';
+import {Component, Input} from '@angular/core';
 import {Hero} from "../../models/hero";
-import { RouteParams } from 'angular2/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import {HeroService} from "../../services/hero.service";
 
 @Component({
     selector: 'my-hero-detail',
-    templateUrl:'./app/components/heroDetail/hero-detail.component.html',
-    styleUrls:['./app/components/heroDetail/hero-detail.component.css']
+    templateUrl: './app/components/heroDetail/hero-detail.component.html',
+    styleUrls: ['./app/components/heroDetail/hero-detail.component.css']
 })
 
 export class HeroDetailComponent {
@@ -18,13 +18,16 @@ export class HeroDetailComponent {
 
     constructor(
         private heroService: HeroService,
-        private routeParams: RouteParams) {
+        private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        let id = +this.routeParams.get('id');
-        this.heroService.getHero(id)
-            .then(hero => this.hero = hero);
+        this.route.params.forEach((params: Params) => {
+            let id = params['id'];
+                console.log('dsdfsdfsdf ' + id);
+            this.heroService.getHero(id)
+                .then(hero => this.hero = hero);
+        });
     }
 
     goBack() {
