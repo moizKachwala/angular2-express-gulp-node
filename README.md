@@ -1,6 +1,6 @@
 # Angular2 with Gulp, Typescript, and Express Server
 
-###Complete Tutorial [https://moizkachwala.github.io/angular2-typescript-gulp-and-expressjs/](https://moizkachwala.github.io/angular2-typescript-gulp-and-expressjs/)
+###Complete Tutorial [https://moizkachwala.github.io/angular2-express-gulp-node/](https://moizkachwala.github.io/angular2-express-gulp-node/)
 
 ##Introduction
 
